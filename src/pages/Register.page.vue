@@ -1,7 +1,7 @@
 <template>
-  <q-page dark padding>
-    <div dark class="q-pa-md" style="max-width: 400px">
-      <q-form dark @submit="onSubmit" class="q-gutter-md">  
+  <q-page padding>
+    <div class="q-pa-md" style="max-width: 400px">
+      <q-form @submit="onSubmit" class="q-gutter-md">  
         <q-input
           v-model="auth.name"
           filled
@@ -59,7 +59,9 @@ export default {
   methods: {
     ...mapActions(["registerUser"]),
     onSubmit() {
-      this.registerUser(this.auth);
+      this.registerUser(this.auth).then((path) => {
+        this.$router.push(path)
+      });
     },
   },
 };

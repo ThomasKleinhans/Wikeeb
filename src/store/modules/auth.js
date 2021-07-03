@@ -12,24 +12,35 @@ const actions = {
   async loginUser({commit}, data){
     const $fb = this.$fb
     const { email, password } = data
-    
-    $fb.loginWithEmail(email, password)
-    .then((response) => {
-        commit('setUserToken', response)
-    })
-    .catch((error) => {
+    return new Promise((resolve) => {
+      $fb.loginWithEmail(email, password)
+      .then((response) => {
+          commit('setUserToken', response)
+          console.log("Successfully logged in")
+          resolve("/private")
+      })
+      .catch((error) => {
         console.error(error)
+        resolve("/")
+      })
     })
   },
   async registerUser({commit}, data) {
     const $fb = this.$fb
     const {name, email, password} = data
-
-    $fb.registerUser(email, password)
-    .then(() => $fb.addUserData(name, email)
-    .then(() => console.log("User successfully added")))
-    .catch((error) => {
-      console.log(error)
+    return new Promise((resolve) => {
+      $fb.registerUser(email, password)
+      .then(() => $fb.addUserData(name, email)
+      .then(() => {
+        console.log("Account successfully added")
+        this.loginUser({email, password})
+        .then(() => resolve('/private'))
+        .catch(() => resolve('/'))
+      }))
+      .catch((error) => {
+        resolve('/')
+        console.error(error)
+      })
     })
   },  
   async logoutUser({commit}){
