@@ -21,7 +21,7 @@
           v-model="auth.password"
           filled
           type="password"
-          label="Mot de passe"
+          label="Password"
           lazy-rules
         />
 
@@ -29,13 +29,13 @@
           v-model="auth.confirmPassword"
           filled
           type="password"
-          label="Confirmer le mot de passe"
+          label="Confirm password"
           lazy-rules
         />
 
         <div>
-          <q-btn outline class="q-ma-xs" label="Se connecter" :to="{ name:'login' }" color="primary" />
-          <q-btn class="q-ma-xs" label="Créer un compte" type="submit" color="primary" />
+          <q-btn class="q-ma-xs full-width" label="Créer un compte" type="submit" color="primary" />
+          <q-btn flat class="q-ma-xs full-width" label="Se connecter" :to="{ name:'login' }" color="primary" />
         </div>
       </q-form>
     </div>

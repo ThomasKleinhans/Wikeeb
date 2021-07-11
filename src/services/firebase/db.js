@@ -8,3 +8,7 @@ export const addUserData = async (name, email) => {
         email: email
     })
 }
+
+export const getCollection = async (collectionName) => {
+    return firebase.firestore().collection(collectionName).get()
+}

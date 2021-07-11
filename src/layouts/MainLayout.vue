@@ -25,7 +25,7 @@
 
         <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
           <q-btn
-            v-if="$q.screen.gt.xs"
+            v-if="getAuthStatus"
             dense
             flat
             round
@@ -33,7 +33,7 @@
             icon="add"
           />
 
-          <q-btn dense flat no-wrap>
+          <q-btn v-if="getAuthStatus" dense flat no-wrap>
             <q-avatar rounded size="20px">
               <img src="https://cdn.quasar.dev/img/avatar3.jpg" />
             </q-avatar>
@@ -42,10 +42,13 @@
             <q-menu auto-close>
               <q-list dense>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section class="text-red">Sign out</q-item-section>
+                  <q-item-section @click="logoutUser" class="text-red">Sign out</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
+          </q-btn>
+          <q-btn v-else dense flat :to="{ name: 'login' }">
+            <q-icon name="login" size="20px" />
           </q-btn>
         </div>
       </q-toolbar>
@@ -59,8 +62,22 @@
 
 <script>
 import { defineComponent } from "vue";
+import { mapGetters, mapActions } from 'vuex'
 
 export default defineComponent({
   name: "MainLayout",
+  computed: {
+    ...mapGetters([
+      "getAuthStatus"
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'logoutUser',
+    ])
+  },
+  updated () {
+    console.log(this.getAuthStatus);
+  },
 });
 </script>

@@ -19,8 +19,8 @@
         />
 
         <div>
-          <q-btn class="q-ma-xs" outline label="Créer un compte" :to="{ name:'register' }" color="primary" />
-          <q-btn class="q-ma-xs" label="Se connecter" type="submit" color="primary" />
+          <q-btn class="q-ma-xs full-width" label="Se connecter" type="submit" color="primary" />
+          <q-btn class="q-ma-xs full-width" flat label="Créer un compte" :to="{ name:'register' }" color="primary" />
         </div>
       </q-form>
     </div>

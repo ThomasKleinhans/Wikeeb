@@ -5,7 +5,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('src/pages/Auth.page.vue') },
+      { path: '', component: () => import('src/pages/Explore.page.vue') },
       { name: "login", path: '/login', component: () => import('src/pages/Login.page.vue') },
       { name: "register", path: '/register', component: () => import('src/pages/Register.page.vue') },
       { name: "private", path : '/private', component: () => import('src/pages/Private.page.vue'), meta: { requiresAuth: true }}

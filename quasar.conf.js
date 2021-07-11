@@ -81,6 +81,7 @@ module.exports = configure(function (ctx) {
       https: false,
       port: 8080,
       open: true,
+      
     },
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
@@ -210,7 +211,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'rond-point'
+        appId: 'wikeeb'
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
