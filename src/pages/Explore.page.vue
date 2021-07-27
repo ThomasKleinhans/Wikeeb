@@ -1,5 +1,6 @@
 <template>
   <q-page padding>
+      <button @click="addKeyboard">Add a keyboard</button>
       <span v-for="(keycap, index) in getAllKeycaps" :key="index">{{keycap.name}}</span>
   </q-page>
 </template>
@@ -7,7 +8,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { useQuasar } from 'quasar'
-import AddKeyboardModal from '../components/AddKeyboardModal.component.vue'
+import AddKeycapModalComponentVue from 'src/components/AddKeycapModal.component.vue';
 
 export default {
     computed: {
@@ -27,7 +28,7 @@ export default {
 
         function addKeyboard(){
             $q.dialog({
-                component: AddKeyboardModal,
+                component: AddKeycapModalComponentVue,
             }).onOk(() => {
                 console.log('OK')
             }).onCancel(() => {

@@ -2,14 +2,17 @@
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-dialog-plugin">
       <q-card-section>
+        <span class="text-h4">Submit a new keycap set</span>
         <q-form class="q-gutter-md">
-          <q-input v-model="keyboardName" label="Standard" />
-          
+          <q-input v-model="keycapName" label="Name" />
+          <q-select v-model="keycapBrand" :options="KeycapConfig.brand" label="Brand" />
+          <q-select v-model="keycapProfile" :options="KeycapConfig.profile" label="Profile" />
+          <q-select v-model="keycapMaterial" :options="KeycapConfig.material" label="Material" />
         </q-form>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn color="primary" label="OK" @click="onOKClick" />
+        <q-btn color="primary" label="Send" @click="onOKClick" />
         <q-btn color="secondary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
     </q-card>
@@ -17,10 +20,16 @@
 </template>
 
 <script>
+import KeycapConfig from "../config/keycaps.config.json"
+
 export default {
   data() {
     return {
-      keyboardName: "",
+      KeycapConfig,
+      keycapName: "",
+      keycapBrand: "",
+      keycapProfile: "",
+      keycapMaterial: ""
     };
   },
   emits: [
