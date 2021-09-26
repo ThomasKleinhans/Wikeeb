@@ -18,9 +18,9 @@
             <q-select
                 filled
                 class="q-mx-xs"
-                v-model="multiple"
+                v-model="brandInput"
                 multiple
-                :options="options"
+                :options="brandOptions"
                 label="Brand"
             />
         </div>
@@ -28,9 +28,9 @@
             <q-select
                 filled
                 class="q-mx-xs"
-                v-model="multiple"
+                v-model="profileInput"
                 multiple
-                :options="options"
+                :options="profileOptions"
                 label="Profile"
             />
         </div>
@@ -38,9 +38,9 @@
             <q-select
                 filled
                 class="q-mx-xs"
-                v-model="multiple"
+                v-model="materialInput"
                 multiple
-                :options="options"
+                :options="materialOptions"
                 label="Material"
             />
         </div>
@@ -48,9 +48,9 @@
             <q-select
                 filled
                 class="q-mx-xs"
-                v-model="multiple"
+                v-model="availabilityInput"
                 multiple
-                :options="options"
+                :options="availabilityOptions"
                 label="Availability"
             />
         </div>
@@ -58,9 +58,9 @@
             <q-select
                 filled
                 class="q-mx-xs"
-                v-model="multiple"
+                v-model="compatibilityInput"
                 multiple
-                :options="options"
+                :options="compatibilityOptions"
                 label="Compatibility"
             />
         </div>
@@ -68,11 +68,16 @@
             <q-btn color="primary" label="Filter" class="full-width" padding="md"/>
         </div>
       </div>
-      <div class="row q-col-gutter-xl">
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="(keycap, index) in getAllKeycaps" :key="index">
+        <q-infinite-scroll class="row q-col-gutter-xl" @load="onload" :offset="250">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" v-for="(keycap, index) in getAllKeycaps" :key="index">
                 <KeycapsCard :item="keycap"/>
-          </div>
-      </div>
+        </div>
+        <template v-slot:loading>
+            <div class="row justify-center q-my-md">
+            <q-spinner-dots color="primary" size="40px" />
+            </div>
+        </template>
+    </q-infinite-scroll>
   </q-page>
 </template>
 
@@ -86,10 +91,33 @@ export default {
     },
     data() {
         return {
-            options: [
+            brandOptions: [
                 'GMK'
             ],
-            multiple: null
+            profileOptions: [
+                'Cherry',
+                'DSS',
+                'KAM',
+                'KAT'
+            ],
+            compatibilityOptions: [
+                'ISO-FR',
+                'ISO-UK',
+                'ANSI-US'
+            ],
+            materialOptions: [
+                'ABS',
+                'PBT' 
+            ],
+            availabilityOptions: [
+                'GB-Live',
+                'In-Stock' 
+            ],
+            brandInput: null,
+            profileInput: null,
+            compatibilityInput: null,
+            materialInput: null,
+            availabilityInput: null
         }
     },
     computed: {
@@ -97,11 +125,15 @@ export default {
     },
     methods:{
         ...mapActions([
-            'getKeycapsFromDB'
-        ])
+            'getInitalKeycapsFromDB',
+            'getNextKeycapsFromDB'
+        ]),
+        onload(index, done){
+            this.getNextKeycapsFromDB().then(() => done())
+        }
     },
     mounted(){
-        this.getKeycapsFromDB()
+        this.getInitalKeycapsFromDB()
     }
 };
 </script>

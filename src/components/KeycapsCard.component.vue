@@ -4,20 +4,20 @@
             {{item.name}}
         </q-card-section>
         <q-img :src="imgURL">
-        <div class="absolute-bottom">
-            <q-chip size="12px" color="primary">
-                {{item.material}}
-            </q-chip>
-            <q-chip size="12px" color="secondary">
-                {{item.profile}}
-            </q-chip>
-            
-            <q-space />
+            <div class="absolute-bottom">
+                <q-chip size="12px" color="primary">
+                    {{item.material}}
+                </q-chip>
+                <q-chip size="12px" color="secondary">
+                    {{item.profile}}
+                </q-chip>
+                
+                <q-space />
 
-            <q-chip size="12px" :color="availabilityColor">
-                {{item.availability}}
-            </q-chip>
-        </div>
+                <q-chip size="12px" :color="availabilityColor">
+                    {{item.availability}}
+                </q-chip>
+            </div>
         </q-img>
     </q-card>
 </template>
@@ -36,9 +36,9 @@
         },
         methods: {
             getImage(){
-                this.$store.$fb.getURLRessource(this.item.image).then((result)=>{
-                    this.imgURL = result
-                })
+                // this.$store.$fb.getURLRessource(this.item.image).then((result)=>{
+                //     this.imgURL = result
+                // })
             }
         },
         computed: {
