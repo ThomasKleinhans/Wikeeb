@@ -1,6 +1,6 @@
 <template>
-  <q-page padding>
-    <div class="q-pa-md" style="max-width: 400px">
+  <q-page padding class="flex justify-center full-width">
+    <div class="q-pa-md" style="width: 400px">
       <q-form @submit="onSubmit" class="q-gutter-md">
         <q-input
           v-model="auth.email"
@@ -14,13 +14,13 @@
           v-model="auth.password"
           filled
           type="password"
-          label="Mot de passe"
+          label="Password"
           lazy-rules
         />
 
         <div>
-          <q-btn class="q-ma-xs full-width" label="Se connecter" type="submit" color="primary" />
-          <q-btn class="q-ma-xs full-width" flat label="Créer un compte" :to="{ name:'register' }" color="primary" />
+          <q-btn class="q-ma-xs full-width" label="Log in" type="submit" color="primary" />
+          <q-btn class="q-ma-xs full-width" flat label="Register" :to="{ name:'register' }" color="primary" />
         </div>
       </q-form>
     </div>
