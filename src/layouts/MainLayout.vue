@@ -2,23 +2,26 @@
   <q-layout view="hHh lpR fFf">
     <q-header
       elevated
-      class="text-white"
+      class="text-white navbar"
     >
       <q-toolbar class="q-py-sm q-px-md">
+
+        <img id="logo" src="../assets/logo.svg" alt="">
+
         <div
           v-if="$q.screen.gt.sm"
           class="
             GL__toolbar-link
-            q-ml-xs q-gutter-md
+            q-ml-xs q-gutter-xl
             text-body2 text-weight-bold
             row
             items-center
             no-wrap
           "
         >
-          <a href="javascript:void(0)" class="text-white text-uppercase"> Explore </a>
-          <a href="javascript:void(0)" class="text-white text-uppercase"> Keyboards </a>
-          <a href="javascript:void(0)" class="text-white text-uppercase"> Keycaps </a>
+          <router-link :to="{ name: 'explore' }" class="text-white"> Explore </router-link>
+          <router-link :to="{ name: 'keycaps' }" class="text-white"> Keycaps </router-link>
+          <router-link :to="{ name: 'keyboards' }" class="text-white"> Keyboards </router-link>
         </div>
 
         <q-space />
@@ -81,3 +84,29 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.navbar{
+
+  background: #282E50;
+
+  a{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    &:hover{
+      text-decoration: underline;
+    }
+
+    &.router-link-exact-active{
+      text-decoration: underline;
+    }
+  }
+
+  #logo{
+    height: 45px;
+  }
+
+}
+
+</style>

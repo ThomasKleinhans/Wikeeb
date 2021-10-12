@@ -1,6 +1,6 @@
 <template>
-  <q-page padding>
-    <div class="q-pa-md" style="max-width: 400px">
+  <q-page class="justify-center flex full-width" padding>
+    <div class="q-pa-md" style="width: 400px">
       <q-form @submit="onSubmit" class="q-gutter-md">  
         <q-input
           v-model="auth.name"
@@ -34,8 +34,8 @@
         />
 
         <div>
-          <q-btn class="q-ma-xs full-width" label="Créer un compte" type="submit" color="primary" />
-          <q-btn flat class="q-ma-xs full-width" label="Se connecter" :to="{ name:'login' }" color="primary" />
+          <q-btn class="q-ma-xs full-width" label="Register" type="submit" color="primary" />
+          <q-btn flat class="q-ma-xs full-width" label="Log in" :to="{ name:'login' }" color="primary" />
         </div>
       </q-form>
     </div>

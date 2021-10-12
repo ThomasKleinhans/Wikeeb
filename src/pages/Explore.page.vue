@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
       <button @click="addKeyboard">Add a keyboard</button>
-      <span v-for="(keycap, index) in getAllKeycaps" :key="index">{{keycap.name}}</span>
   </q-page>
 </template>
 
