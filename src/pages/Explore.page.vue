@@ -8,7 +8,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { useQuasar } from 'quasar'
-import AddKeycapModalComponentVue from 'src/components/AddKeycapModal.component.vue';
+import AddKeyboardModalComponentVue from 'src/components/AddKeyboardModal.component.vue'
+import AddKeycapModalComponentVue from 'src/components/AddKeycapModal.component.vue'
 
 export default {
     computed: {
@@ -17,18 +18,14 @@ export default {
     methods:{
         ...mapActions([
             'getKeycapsFromDB'
-        ]),
-        openModal(){
-
-            
-        }
+        ])
     },
     setup(){
         const $q = useQuasar()
 
         function addKeyboard(){
             $q.dialog({
-                component: AddKeycapModalComponentVue,
+                component: AddKeyboardModalComponentVue,
             }).onOk(() => {
                 console.log('OK')
             }).onCancel(() => {

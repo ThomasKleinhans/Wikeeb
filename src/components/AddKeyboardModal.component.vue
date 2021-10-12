@@ -2,8 +2,10 @@
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-dialog-plugin">
       <q-card-section>
+        <span class="text-h4">Submit a new keyboard</span>
         <q-form class="q-gutter-md">
-          <q-input v-model="keyboardName" label="Standard" />
+          <q-input v-model="keyboardName" label="Name" />
+          <q-select v-model="keyboardFormat" :options="KeyboardConfig.format" label="Format" />
           
         </q-form>
       </q-card-section>
@@ -17,10 +19,14 @@
 </template>
 
 <script>
+import KeyboardConfig from "../config/keyboards.config.json"
+
 export default {
   data() {
     return {
+      KeyboardConfig,
       keyboardName: "",
+      keyboardFormat: ""
     };
   },
   emits: [
