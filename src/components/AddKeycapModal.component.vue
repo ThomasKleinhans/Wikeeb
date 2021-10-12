@@ -12,8 +12,8 @@
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn color="primary" label="Send" @click="onOKClick" />
-        <q-btn color="secondary" label="Cancel" @click="onCancelClick" />
+        <q-btn color="negative" label="Cancel" @click="onCancelClick" />
+        <q-btn color="positive" label="OK" @click="onOKClick" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -75,3 +75,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .q-dialog-plugin{
+    background: var(--q-dark-page)
+  }
+</style>
