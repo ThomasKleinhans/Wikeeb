@@ -68,16 +68,16 @@
             <q-btn color="primary" label="Filter" class="full-width" padding="md"/>
         </div>
       </div>
-        <q-infinite-scroll class="row q-col-gutter-xl" @load="onload" :offset="250">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" v-for="(keycap, index) in getAllKeycaps" :key="index">
-                <KeycapsCard :item="keycap"/>
-        </div>
-        <template v-slot:loading>
-            <div class="row justify-center q-my-md">
-            <q-spinner-dots color="primary" size="40px" />
+        <q-infinite-scroll class="row q-col-gutter-xl" @load="onload" :offset="0">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" v-for="keycap in getAllKeycaps" :key="keycap.id">
+                    <KeycapsCard :item="keycap"/>
             </div>
-        </template>
-    </q-infinite-scroll>
+            <template v-slot:loading>
+                <div class="row justify-center q-my-md">
+                <q-spinner-dots color="primary" size="40px" />
+                </div>
+            </template>
+        </q-infinite-scroll>
   </q-page>
 </template>
 
@@ -125,19 +125,11 @@ export default {
     },
     methods:{
         ...mapActions([
-            'getInitalKeycapsFromDB',
             'getNextKeycapsFromDB'
         ]),
         onload(index, done){
             this.getNextKeycapsFromDB().then(() => done())
         }
-    },
-    mounted(){
-        this.getInitalKeycapsFromDB()
     }
 };
 </script>
-
-<style lang="scss" scoped>
-
-</style>

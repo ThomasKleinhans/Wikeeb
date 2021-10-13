@@ -5,8 +5,9 @@
       class="text-white navbar"
     >
       <q-toolbar class="q-py-sm q-px-md">
-
-        <img id="logo" src="../assets/logo.svg" alt="">
+        <router-link :to="{ name: 'explore' }" class="text-white">
+          <img id="logo" src="../assets/logo.svg" alt=""> 
+        </router-link>
 
         <div
           v-if="$q.screen.gt.sm"
@@ -21,38 +22,29 @@
         >
           <router-link :to="{ name: 'explore' }" class="text-white"> Explore </router-link>
           <router-link :to="{ name: 'keycaps' }" class="text-white"> Keycaps </router-link>
-          <router-link :to="{ name: 'keyboards' }" class="text-white"> Keyboards </router-link>
+          <!-- <router-link :to="{ name: 'keyboards' }" class="text-white"> Keyboards </router-link> -->
         </div>
 
         <q-space />
 
         <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-          <q-btn
-            v-if="getAuthStatus"
-            dense
-            flat
-            round
-            size="sm"
-            icon="add"
-          />
 
           <q-btn v-if="getAuthStatus" dense flat no-wrap>
-            <q-avatar rounded size="20px">
-              <img src="https://cdn.quasar.dev/img/avatar3.jpg" />
-            </q-avatar>
+            <q-icon name="person" size="30px" />
             <q-icon name="arrow_drop_down" size="16px" />
 
-            <q-menu auto-close>
-              <q-list dense>
+            <q-menu  auto-close>
+              <q-list style="min-width: 100px" dense>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section @click="logoutUser" class="text-red">Sign out</q-item-section>
+                  <q-item-section @click="logoutUser" class="text-negative">Log out</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
           </q-btn>
-          <q-btn v-else dense flat :to="{ name: 'login' }">
-            <q-icon name="login" size="20px" />
+          <q-btn color="primary" class="log-button" v-else dense :to="{ name: 'login' }">
+            <q-icon name="person" size="25px" />
           </q-btn>
+
         </div>
       </q-toolbar>
     </q-header>
@@ -98,6 +90,7 @@ export default defineComponent({
       text-decoration: underline;
     }
 
+
     &.router-link-exact-active{
       text-decoration: underline;
     }
@@ -105,6 +98,10 @@ export default defineComponent({
 
   #logo{
     height: 45px;
+  }
+
+  .q-menu{
+    max-width: 100px !important;
   }
 
 }

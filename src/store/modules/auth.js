@@ -30,7 +30,7 @@ const actions = {
     const {name, email, password} = data
     return new Promise((resolve) => {
       $fb.registerUser(email, password)
-      .then(() => $fb.addUserData(name, email)
+      .then((response) => $fb.addUserData(response.user.uid, name, email)
       .then(() => {
         console.log("Account successfully added")
         this.loginUser({email, password})

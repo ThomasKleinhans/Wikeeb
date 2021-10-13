@@ -7,6 +7,7 @@ export default boot(async ({app, router, store, Vue}) => {
   firebaseServices.auth().onAuthStateChanged((user) => {
     if(user){
       store.commit("setUserToken", user)
+      store.dispatch('bindCurrentUser', user.uid)
     }
   }, (error) => {
     console.error(error)

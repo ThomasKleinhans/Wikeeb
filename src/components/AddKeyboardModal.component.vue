@@ -72,9 +72,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-  .q-dialog-plugin{
-    background: var(--q-dark-page)
-  }
-</style>
