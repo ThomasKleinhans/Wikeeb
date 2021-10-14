@@ -1,12 +1,14 @@
 const state = {
   allKeycaps: [],
+  filteredKeycaps:[],
   lastKeycapsId: null
 };
 
 const getters = {
   getAllKeycaps: (state) => state.allKeycaps,
   getLastKeycaps: (state) => state.lastKeycapsId,
-  getFavoriteKeycaps: (state, getters) => state.allKeycaps.filter(item => getters.getFavoritesKeycaps.includes(item.id))
+  getFavoriteKeycaps: (state, getters) => state.allKeycaps.filter(item => getters.getFavoritesKeycaps.includes(item.id)),
+  getFilteredKeycaps: (state) => state.filteredKeycaps
 };
 
 const actions = {
@@ -44,6 +46,22 @@ const actions = {
         commit("setLastKeycapsVisible", response.docs[responseSize - 1].id)
       }
     })
+  },
+  async fetchFilteredKeycaps({commit}, filters){
+    commit("resetFilteredKeycaps")
+    this.$fb.getFilteredItemsOfCollection("keycaps", filters)
+    .then((response) =>{
+      const responseSize = response?.docs.length
+      if(responseSize > 0){
+        response.forEach((doc) => {
+          const data = {id: doc.id, data: doc.data()}
+          commit("addFilteredKeycaps", data)
+        });
+      }
+      else{
+        "No result to the request"
+      }
+    })
   }
 };
 
@@ -52,8 +70,15 @@ const mutations = {
     response.data.id = response.id
     state.allKeycaps.push(response.data)
   },
+  addFilteredKeycaps(state, response) {
+    response.data.id = response.id
+    state.filteredKeycaps.push(response.data)
+  },
   resetKeycaps(state){
     state.allKeycaps = []
+  },
+  resetFilteredKeycaps(state){
+    state.filteredKeycaps = []
   },
   setLastKeycapsVisible(state, data){
     state.lastKeycapsId = data
