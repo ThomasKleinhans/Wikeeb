@@ -10,7 +10,8 @@ const routes = [
       { name: "keycaps", path: '/keycaps', component: () => import('src/pages/Keycaps.page.vue') },
       { name: "login", path: '/login', component: () => import('src/pages/Login.page.vue') },
       { name: "register", path: '/register', component: () => import('src/pages/Register.page.vue') },
-      { name: "private", path : '/private', component: () => import('src/pages/Private.page.vue'), meta: { requiresAuth: true }}
+      { name: "private", path : '/private', component: () => import('src/pages/private/Private.page.vue'), meta: { requiresAuth: true }},
+      { name: "favorite-keycaps", path : '/favorite-keycaps', component: () => import('src/pages/private/FavoritesKeycaps.page.vue'), meta: { requiresAuth: true }}
     ],
   },
 

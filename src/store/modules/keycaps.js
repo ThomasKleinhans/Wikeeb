@@ -7,7 +7,8 @@ const state = {
 
 const getters = {
   getAllKeycaps: (state) => state.allKeycaps,
-  getLastKeycaps: (state) => state.lastKeycapsId
+  getLastKeycaps: (state) => state.lastKeycapsId,
+  getFavoriteKeycaps: (state, getters) => state.allKeycaps.filter(item => getters.getFavoritesKeycaps.includes(item.id))
 };
 
 const actions = {
@@ -16,7 +17,8 @@ const actions = {
     commit("resetKeycaps")
     $fb.getCollection("keycaps").then((response) => {
       response.forEach((doc) => {
-        commit("addKeycaps", doc.data())
+        const data = {id: doc.id, data: doc.data()}
+        commit("addKeycaps", data)
       });
     });
   },
@@ -26,7 +28,8 @@ const actions = {
       const responseSize = response?.docs.length
       if(responseSize > 2){
         response.forEach((doc) => {
-          commit("addKeycaps", doc.data())
+          const data = {id: doc.id, data: doc.data()}
+          commit("addKeycaps", data)
         });
         commit("setLastKeycapsVisible", response.docs[responseSize - 1].id)
       }
@@ -37,7 +40,8 @@ const actions = {
       const responseSize = response?.docs.length
       if(responseSize > 2){
         response.forEach((doc) => {
-          commit("addKeycaps", doc.data())
+          const data = {id: doc.id, data: doc.data()}
+          commit("addKeycaps", data)
         });
         commit("setLastKeycapsVisible", response.docs[responseSize - 1].id)
       }
@@ -46,8 +50,9 @@ const actions = {
 };
 
 const mutations = {
-  addKeycaps(state, data) {
-    state.allKeycaps.push(data)
+  addKeycaps(state, response) {
+    response.data.id = response.id
+    state.allKeycaps.push(response.data)
   },
   resetKeycaps(state){
     state.allKeycaps = []

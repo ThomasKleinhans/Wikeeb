@@ -1,8 +1,10 @@
 <template>
     <q-card class="keycaps-card">
-        <q-card-section>
-            {{item.name}}
+        <q-card-section class="flex items-center justify-between q-py-sm q-px-md">
+            <span class="title">{{item.name}}</span>
+            <q-btn flat round :color="isFavorite ? 'negative' : 'favorite'" :style="isFavorite ? '' : 'opacity:.3'" icon="favorite" @click="favorite()"/>
         </q-card-section>
+        
         <q-img :src="imgURL">
             <div class="absolute-bottom">
                 <q-chip size="12px" color="primary">
@@ -23,6 +25,9 @@
 </template>
 
 <script>
+
+import { mapGetters, mapActions } from 'vuex'
+
     export default {
         props: {
             item: {
@@ -35,13 +40,30 @@
             }
         },
         methods: {
+            ...mapActions([
+                "addKeycapsToFavorties"
+            ]),
             getImage(){
-                // this.$store.$fb.getURLRessource(this.item.image).then((result)=>{
-                //     this.imgURL = result
-                // })
-            }
+                this.$store.$fb.getURLRessource(this.item.image).then((result)=>{
+                    this.imgURL = result
+                })
+            },
+            favorite(){
+                if(this.getAuthStatus){
+                    this.addKeycapsToFavorties({keycapsUID: this.item.id, userUID: this.getUserUID})
+                }
+                else{
+                    this.$router.push({name: 'login'})
+                }
+            },
+            
         },
-        computed: {
+        computed: { 
+            ...mapGetters([
+                "getAuthStatus",
+                "getUserUID",
+                "getFavoritesKeycaps"
+            ]),
             availabilityColor() {
                 switch (this.item.availability) {
                     case 'GB-Ended':
@@ -62,6 +84,9 @@
                     default :
                     return "dark";
                 }
+            },
+            isFavorite(){
+                return this.getFavoritesKeycaps.includes(this.item.id)
             }
         },
         mounted () {
@@ -76,6 +101,17 @@
     .q-card__section{
         background: #282E50;
     }
+
+    .title{
+        &:hover{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+    .q-img--menu{
+            cursor: pointer;
+            height: 250px;
+        }
     .absolute-bottom{
         display: flex;
         background: none;

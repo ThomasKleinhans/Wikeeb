@@ -44,6 +44,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { useQuasar } from 'quasar'
 
 export default {
   data() {
@@ -56,12 +57,25 @@ export default {
       },
     };
   },
+  setup () {
+    const $q = useQuasar()
+    return{
+      showError(){
+        $q.notify({ color: 'negative', message: 'Woah! Your passwords are different ! Please fix that.', icon: 'report_problem' })
+      }
+    }
+  },
   methods: {
     ...mapActions(["registerUser"]),
     onSubmit() {
-      this.registerUser(this.auth).then((path) => {
-        this.$router.push(path)
-      });
+      if(this.auth.password === this.auth.confirmPassword){
+        this.registerUser(this.auth).then((path) => {
+          this.$router.push(path)
+        });
+      }
+      else{
+        this.showError()
+      }
     },
   },
 };
