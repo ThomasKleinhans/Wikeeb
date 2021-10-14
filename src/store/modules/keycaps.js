@@ -1,5 +1,3 @@
-import { getNextItemsOfCollection } from "src/services/firebase/db";
-
 const state = {
   allKeycaps: [],
   lastKeycapsId: null

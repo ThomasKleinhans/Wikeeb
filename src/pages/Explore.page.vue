@@ -24,7 +24,7 @@ export default {
 
         function addKeyboard(){
             $q.dialog({
-                component: AddKeyboardModalComponentVue,
+                component: AddKeycapModalComponentVue,
             }).onOk(() => {
                 console.log('OK')
             }).onCancel(() => {
