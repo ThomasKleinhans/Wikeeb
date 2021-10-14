@@ -36,6 +36,21 @@ export const addFavoriteKeycapsToUser = async (uid, keycaps) => {
     })
 }
 
+export const getListFromCollection = async (collectionName, listOfIds) => {
+    const result = []
+
+    for(const item of listOfIds){
+        firebase.firestore().collection(collectionName).doc(item).get()
+        .then((doc) => {
+            let response = doc.data()
+            response.id = doc.id
+            result.push(response)
+        })
+    }
+    
+    return result
+}
+
 export const removeFavoriteKeycapsToUser = async (uid, keycaps) => {
     return firebase.firestore().collection("users").doc(uid).update({
         favoritesKeycaps: firebase.firestore.FieldValue.arrayRemove(keycaps)

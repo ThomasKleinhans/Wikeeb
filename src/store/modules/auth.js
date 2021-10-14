@@ -1,6 +1,7 @@
 const state = {
   isAuthenticated: false,
   uid: null,
+  isReady: false
 };
 
 const getters = {
@@ -15,6 +16,7 @@ const actions = {
     return new Promise((resolve) => {
       $fb.loginWithEmail(email, password)
       .then((response) => {
+          commit('setAuthState', response !== null) 
           commit('setUserToken', response)
           console.log("Successfully logged in")
           resolve("/private")
@@ -57,8 +59,11 @@ const actions = {
 }
 
 const mutations = {
+  setAuthState (state, value) {
+    state.isAuthenticated = value
+    state.isReady = value
+  },
   setUserToken(state, user) {
-    state.isAuthenticated = true
     state.uid = user.uid
   },
   destroyUser(state) {

@@ -33,9 +33,14 @@
             <q-icon name="person" size="30px" />
             <q-icon name="arrow_drop_down" size="16px" />
 
-            <q-menu  auto-close>
-              <q-list style="min-width: 100px" dense>
-                <q-item clickable class="GL__menu-link">
+            <q-menu id="user-menu" auto-close>
+              <q-list>
+                <q-item clickable :to="{ name: 'favorite-keycaps' }" class="GL__menu-link flex items-center row">
+                  <q-icon name="favorite" size="16px" class="q-mx-sm" />
+                  <q-item-section>Keycaps</q-item-section>
+                </q-item>
+                <q-item clickable class="GL__menu-link flex items-center flex row">
+                  <q-icon name="logout" size="16px" color="negative" class="q-mx-sm" />
                   <q-item-section @click="logoutUser" class="text-negative">Log out</q-item-section>
                 </q-item>
               </q-list>
@@ -70,10 +75,7 @@ export default defineComponent({
     ...mapActions([
       'logoutUser',
     ])
-  },
-  updated () {
-    console.log(this.getAuthStatus);
-  },
+  }
 });
 </script>
 
@@ -95,15 +97,10 @@ export default defineComponent({
       text-decoration: underline;
     }
   }
-
   #logo{
     height: 45px;
   }
-
-  .q-menu{
-    max-width: 100px !important;
-  }
-
 }
+
 
 </style>
