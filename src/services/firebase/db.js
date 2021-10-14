@@ -30,6 +30,18 @@ export const getNextItemsOfCollection = async (collectionName, lastVisible, limi
     }
 }
 
+export const getFilteredItemsOfCollection = async (collectionName, filters) => {
+    let query = firebase.firestore().collection(collectionName)
+    for (const property in filters) {
+        if(filters[property]?.length > 0){
+            console.log(filters[property]);
+            query = query.where(property, '==', filters[property])
+        }
+    }
+
+    return query.get()
+}
+
 export const addFavoriteKeycapsToUser = async (uid, keycaps) => {
     return firebase.firestore().collection("users").doc(uid).update({
         favoritesKeycaps: firebase.firestore.FieldValue.arrayUnion(keycaps)
