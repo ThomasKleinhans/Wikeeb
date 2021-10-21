@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev:win",
+			"problemMatcher": [],
+			"label": "npm: dev:win",
+			"detail": "cross-env QENV=DEV quasar dev",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
