@@ -1,23 +1,10 @@
 <template>
   <q-page padding>
-    <div class="row">
-      <div class="col">
-        <q-input
-          class="q-mr-xs"
-          filled
-          bottom-slots
-          label="GMK Dots, ePBT Be the one"
-        >
-          <template v-slot:prepend>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-      </div>
-
+    <div class="row q-mb-md">
       <div class="col">
         <q-select
           filled
-          class="q-mx-xs"
+          class="q-mr-xs"
           clearable
           v-model="filters.brand"
           :options="brandOptions"
@@ -64,7 +51,7 @@
           label="Compatibility"
         />
       </div>
-      <div class="col q-mx-xs">
+      <div class="col q-ml-xs">
         <q-btn color="primary" @click="fetchFilteredKeycaps(filters)" label="Filter" class="full-width" padding="md" />
       </div>
     </div>
