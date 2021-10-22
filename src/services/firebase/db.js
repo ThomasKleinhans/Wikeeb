@@ -18,10 +18,6 @@ export const pushItemToCollection = async (collectionName, item) =>{
     return firebase.firestore().collection(collectionName).add(item)
 }
 
-export const pushKeycapToWIP = async (keycap) => {
-    return firebase.firestore().collection("WIP-Keycaps").add(keycap)
-}
-
 export const getBeginningOfCollection = async (collectionName, limit = 15) => {
     return firebase.firestore()
         .collection(collectionName)
