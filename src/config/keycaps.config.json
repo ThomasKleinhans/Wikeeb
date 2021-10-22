@@ -1,5 +1,8 @@
 {
     "profile": ["Cherry", "OEM", "SA", "MT3", "NP", "DSA", "XDA", "KAT", "KAM"],
     "material": ["ABS", "PBT", "Aluminium", "Brass"],
-    "brand": ["GMK", "Signature Plastic", "Keyreative", "EnjoyPBT"]
+    "brand": ["GMK", "Signature Plastic", "Keyreative", "EnjoyPBT"],
+    "availability": ["IC", "GB-Live", "GB-Ended", "In-stock", "Sold out" ],
+    "compatibility": ["ISO-UK", "ANSI-US", "ISO-FR", "ISO-DE", "ISO-CH" ],
+    "links": ["GeekHack", "Worldwide", "US", "EU", "CA", "UK", "Asia", "CN", "JP", "OCE"]
 }

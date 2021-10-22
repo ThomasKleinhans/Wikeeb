@@ -14,6 +14,10 @@ export const getCollection = async (collectionName) => {
     return firebase.firestore().collection(collectionName).get()
 }
 
+export const pushItemToCollection = async (collectionName, item) =>{
+    return firebase.firestore().collection(collectionName).add(item)
+}
+
 export const getBeginningOfCollection = async (collectionName, limit = 15) => {
     return firebase.firestore()
         .collection(collectionName)
