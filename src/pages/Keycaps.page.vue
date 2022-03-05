@@ -58,8 +58,8 @@
     <div class="row q-col-gutter-xl">
       <div
         class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
-        v-for="keycap in keycapsToShow"
-        :key="keycap.id"
+        v-for="(keycap, index) in keycapsToShow"
+        :key="index"
       >
         <KeycapsCard :item="keycap" />
       </div>
