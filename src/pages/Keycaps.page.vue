@@ -70,6 +70,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import KeycapsCard from "../components/KeycapsCard.component.vue";
+import keycapsConfig from "src/config/keycaps.config.json";
 
 export default {
   components: {
@@ -77,11 +78,11 @@ export default {
   },
   data() {
     return {
-      brandOptions: ["GMK"],
-      profileOptions: ["Cherry", "DSS", "KAM", "KAT"],
-      compatibilityOptions: ["ISO-FR", "ISO-UK", "ANSI-US"],
-      materialOptions: ["ABS", "PBT"],
-      availabilityOptions: ["GB-Live", "GB-Ended", "In-Stock"],
+      brandOptions: keycapsConfig.brand,
+      profileOptions: keycapsConfig.profile,
+      compatibilityOptions: keycapsConfig.compatibility,
+      materialOptions: keycapsConfig.material,
+      availabilityOptions: keycapsConfig.availability,
       filters :{
         brand: [],
         profile: [],

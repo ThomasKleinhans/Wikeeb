@@ -9,6 +9,7 @@ const state = {
   
   const getters = {
     getFavoritesKeycaps: (state) => state.currentUser.favoritesKeycaps,
+    getAdminStatus: (state) => state.currentUser.admin
   };
   
   const actions = {
