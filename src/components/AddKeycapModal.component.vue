@@ -243,7 +243,7 @@ export default {
               blob
             )
               .then((response) => {
-                this.keycapToAdd.imgPath = response.metadata.fullPath;
+                this.keycapToAdd.image = response.metadata.fullPath;
                 FirebaseService.pushItemToCollection("keycaps", this.keycapToAdd)
               })
               .catch((err) => {
