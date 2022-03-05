@@ -53,7 +53,7 @@ module.exports = configure(function (ctx) {
         QENV: enviromentConfiguration(process.env.QENV)
       },
       vueRouterMode: 'history',
-      publicPath: 'wikeeb', // available values: 'hash', 'history'
+      publicPath: 'wikeeb/', // available values: 'hash', 'history'
       // transpile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
