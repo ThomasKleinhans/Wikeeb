@@ -244,7 +244,7 @@ export default {
             )
               .then((response) => {
                 this.keycapToAdd.imgPath = response.metadata.fullPath;
-                FirebaseService.pushItemToCollection("WIP-Keycaps", this.keycapToAdd)
+                FirebaseService.pushItemToCollection("keycaps", this.keycapToAdd)
               })
               .catch((err) => {
                 console.error(err);
