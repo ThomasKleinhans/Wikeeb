@@ -1,0 +1,1 @@
+"use strict";(self["webpackChunkwikeeb"]=self["webpackChunkwikeeb"]||[]).push([[475],{3475:(e,n,s)=>{s.r(n),s.d(n,{default:()=>k});var t=s(3673);function a(e,n,s,a,c,r){const u=(0,t.up)("q-page");return(0,t.wg)(),(0,t.j4)(u,{padding:""})}const c={};var r=s(6762),u=s(7518),p=s.n(u);c.render=a;const k=c;p()(c,"components",{QPage:r.Z})}}]);
