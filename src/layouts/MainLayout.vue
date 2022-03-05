@@ -29,7 +29,7 @@
         <q-space />
 
         <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-          <q-btn @click="tryToAddKeyboard" color="primary">
+          <q-btn v-if="getAdminStatus" @click="tryToAddKeyboard" color="primary">
             Add a keycap set
           </q-btn>
 
@@ -92,7 +92,7 @@ import { useQuasar } from "quasar";
 export default defineComponent({
   name: "MainLayout",
   computed: {
-    ...mapGetters(["getAuthStatus"]),
+    ...mapGetters(["getAuthStatus", "getAdminStatus"]),
   },
   methods: {
     ...mapActions(["logoutUser"]),
