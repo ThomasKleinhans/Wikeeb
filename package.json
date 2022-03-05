@@ -18,14 +18,16 @@
     "core-js": "^3.6.5",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
-    "firebase": "^8.6.8",
+    "firebase": "^8.10.0",
     "quasar": "^2.0.0",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.13",
     "vuex": "^4.0.1",
     "vuexfire": "^3.2.5"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@quasar/app": "^3.0.0",
+    "@quasar/app": "^3.3.3",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.0.0",
