@@ -1,11 +1,11 @@
 <template>
     <q-card class="keycaps-card">
         <q-card-section class="flex items-center justify-between q-py-sm q-px-md">
-            <span class="title">{{item.name}}</span>
+            <span @click="sendToDetails" class="title">{{item.name}}</span>
             <q-btn flat round :color="isFavorite ? 'negative' : 'favorite'" :style="isFavorite ? '' : 'opacity:.3'" icon="favorite" @click="favorite()"/>
         </q-card-section>
         
-        <q-img :src="imgURL">
+        <q-img :src="imgURL"  @click="sendToDetails">
             <div class="absolute-bottom">
                 <q-chip size="12px" color="primary">
                     {{item.material}}
@@ -56,6 +56,9 @@ import { mapGetters, mapActions } from 'vuex'
                     this.$router.push({name: 'login'})
                 }
             },
+            sendToDetails(){
+                this.$router.push(`/keycaps/${this.item.id}`)
+            }
             
         },
         computed: { 
