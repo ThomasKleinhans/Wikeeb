@@ -8,7 +8,10 @@ const getters = {
   getAllKeycaps: (state) => state.allKeycaps,
   getLastKeycaps: (state) => state.lastKeycapsId,
   getFavoriteKeycaps: (state, getters) => state.allKeycaps.filter(item => getters.getFavoritesKeycaps.includes(item.id)),
-  getFilteredKeycaps: (state) => state.filteredKeycaps
+  getFilteredKeycaps: (state) => state.filteredKeycaps,
+  getKeycapsById: (state) => (id) => {
+    return state.allKeycaps.filter(item => item.id == id)[0]
+  }
 };
 
 const actions = {
