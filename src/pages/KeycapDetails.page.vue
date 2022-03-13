@@ -2,19 +2,20 @@
   <q-page padding>
       <div class="fit row wrap justify-center items-start content-start">
         <div class="col-7">
-        <q-card class="keycaps-card" v-if="item">
+        <q-card class="keycaps-card" v-if="currentItem">
             <q-item>
                 <q-item-section>
                     <q-item-label>
                         <q-btn flat round icon="favorite" />
-                        {{item.name}}
+                        {{currentItem.name}}
                     </q-item-label>
                 </q-item-section>
             </q-item>
             
             <q-card-section horizontal>
                     <q-img
-                    src="https://firebasestorage.googleapis.com/v0/b/dev-wikeeb.appspot.com/o/keycaps%2F9o18y7J.jpg?alt=media&token=ffb84685-f816-4d32-9f90-a9ba5585f1d5"
+                    v-if="imgURL"
+                    :src="imgURL"
                     spinner-color="white"
                     />
 
@@ -55,17 +56,27 @@ import { mapGetters } from 'vuex'
     export default {
         data() {
             return {
-                item: null
+                item: null,
+                imgURL: null
             }
         },
         computed: {
             ...mapGetters([
             "getKeycapsById"
-            ])
+            ]),
         },
-        mounted () {
-            this.item = this.getKeycapsById(this.$route.params.id)
+        computed: {
+            currentItem () {
+                return this.$store.getters.getKeycapsById(this.$route.params.id)
+            }
         },
+        watch: {
+            imgURL(newValue, oldValue) {
+                this.$store.$fb.getURLRessource(newValue.image).then((result)=>{
+                    this.imgURL = result
+                })
+            }
+        }
     }
 </script>
 

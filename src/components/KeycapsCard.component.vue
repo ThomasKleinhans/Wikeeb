@@ -57,7 +57,7 @@ import { mapGetters, mapActions } from 'vuex'
                 }
             },
             sendToDetails(){
-                this.$router.push(`/keycaps/${this.item.id}`)
+                this.$router.push({ name: "keycaps-details", params: {id: this.item.id }})
             }
             
         },
