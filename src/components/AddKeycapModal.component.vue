@@ -65,7 +65,7 @@
               <div v-for="(link, index) in keycapToAdd.links" :key="index" class="flex">
                 <q-select
                   v-model="keycapToAdd.links[index].prefix"
-                  :options="KeycapConfig.links"
+                  :options="filteredLinks"
                   class="q-mr-md"
                 >
                   <template v-slot:prepend>
@@ -156,6 +156,11 @@ export default {
       },
     };
   },
+  computed: {
+    filteredLinks() {
+      return this.KeycapConfig.links.map(e => e.name)
+    }
+  },
   methods: {
     // following method is REQUIRED
     // (don't change its name --> "show")
@@ -243,8 +248,10 @@ export default {
               blob
             )
               .then((response) => {
-                this.keycapToAdd.image = response.metadata.fullPath;
-                FirebaseService.pushItemToCollection("keycaps", this.keycapToAdd)
+                FirebaseService.getURLRessource(response.metadata.fullPath).then((result)=>{
+                  this.keycapToAdd.image = result
+                  FirebaseService.pushItemToCollection("keycaps", this.keycapToAdd)
+                })
               })
               .catch((err) => {
                 console.error(err);

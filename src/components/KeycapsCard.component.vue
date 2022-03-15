@@ -5,7 +5,7 @@
             <q-btn flat round :color="isFavorite ? 'negative' : 'favorite'" :style="isFavorite ? '' : 'opacity:.3'" icon="favorite" @click="favorite()"/>
         </q-card-section>
         
-        <q-img :src="imgURL"  @click="sendToDetails">
+        <q-img :src="item.image"  @click="sendToDetails">
             <div class="absolute-bottom">
                 <q-chip size="12px" color="primary">
                     {{item.material}}
@@ -34,20 +34,10 @@ import { mapGetters, mapActions } from 'vuex'
                 type: Object,
             },
         },
-        data() {
-            return {
-                imgURL: ""
-            }
-        },
         methods: {
             ...mapActions([
                 "addKeycapsToFavorties"
             ]),
-            getImage(){
-                this.$store.$fb.getURLRessource(this.item.image).then((result)=>{
-                    this.imgURL = result
-                })
-            },
             favorite(){
                 if(this.getAuthStatus){
                     this.addKeycapsToFavorties({keycapsUID: this.item.id, userUID: this.getUserUID})
@@ -59,7 +49,6 @@ import { mapGetters, mapActions } from 'vuex'
             sendToDetails(){
                 this.$router.push({ name: "keycaps-details", params: {id: this.item.id }})
             }
-            
         },
         computed: { 
             ...mapGetters([
@@ -91,10 +80,7 @@ import { mapGetters, mapActions } from 'vuex'
             isFavorite(){
                 return this.getFavoritesKeycaps.includes(this.item.id)
             }
-        },
-        mounted () {
-            this.getImage();
-        },
+        }
     }
 </script>
 

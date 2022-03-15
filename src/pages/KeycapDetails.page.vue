@@ -14,20 +14,19 @@
             
             <q-card-section horizontal>
                     <q-img
-                    v-if="imgURL"
-                    :src="imgURL"
+                    :src="currentItem.image"
                     spinner-color="white"
                     />
 
                 <q-card-section class="col-4">
                     <q-list>
-                        <q-item clickable v-ripple>
+                        <q-item clickable v-ripple v-for="link in currentItem.links" :key="link['prefix']" :href="link['link']" target="_blank">
                             <q-item-section avatar top>
-                                <q-avatar icon="folder" color="primary" text-color="white" />
+                                <img :src="getIcon(link)">
                             </q-item-section>
 
                             <q-item-section>
-                                <q-item-label lines="1">Geekhack</q-item-label>
+                                <q-item-label lines="1">{{ link['prefix'] }}</q-item-label>
                             </q-item-section>
                         </q-item>
                     </q-list>
@@ -45,17 +44,19 @@
             </q-card-section>
 
         </q-card>
-            {{ $route.params.id }}
         </div>
       </div>
   </q-page>
 </template>
 
 <script>
+import KeycapConfig from "../config/keycaps.config.json";
 import { mapGetters } from 'vuex'
+
     export default {
         data() {
             return {
+                KeycapConfig,
                 item: null,
                 imgURL: null
             }
@@ -64,17 +65,14 @@ import { mapGetters } from 'vuex'
             ...mapGetters([
             "getKeycapsById"
             ]),
-        },
-        computed: {
             currentItem () {
                 return this.$store.getters.getKeycapsById(this.$route.params.id)
-            }
+            },
         },
-        watch: {
-            imgURL(newValue, oldValue) {
-                this.$store.$fb.getURLRessource(newValue.image).then((result)=>{
-                    this.imgURL = result
-                })
+        methods: {
+            getIcon (item) {
+                const temp = KeycapConfig.links.find(e => e.name == item.prefix)
+                return require("../assets/icons/" + temp.icon)
             }
         }
     }

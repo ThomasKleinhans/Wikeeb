@@ -4,5 +4,16 @@
     "brand": ["GMK", "Signature Plastic", "Keyreative", "EnjoyPBT", "Unknown"],
     "availability": ["IC", "GB-Live", "GB-Ended", "In-stock", "Sold out" ],
     "compatibility": ["ISO-UK", "ANSI-US", "ISO-FR", "ISO-DE", "ISO-CH" ],
-    "links": ["GeekHack", "Reddit", "Worldwide", "Asia", "EU", "CA", "CN", "JP", "OCE", "UK", "US"]
+    "links": [
+        {"name": "GeekHack", "icon": "Geekhack.svg"},
+        {"name": "Reddit", "icon": "Reddit.svg"},
+        {"name": "Worldwide", "icon": "worldwide.svg"},
+        {"name": "EU", "icon": "union-europeenne.svg"},
+        {"name": "CA", "icon": "canada.svg"},
+        {"name": "CN", "icon": "chine.svg"},
+        {"name": "JP", "icon": "japon.svg"},
+        {"name": "OCE", "icon": "australie.svg"},
+        {"name": "UK", "icon": "royaume-uni.svg"},
+        {"name": "US", "icon": "etats-unis.svg"}
+    ]
 }
