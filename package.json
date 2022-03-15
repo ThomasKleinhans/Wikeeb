@@ -14,24 +14,24 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
-    "core-js": "^3.6.5",
+    "@quasar/extras": "^1.13.1",
+    "core-js": "^3.21.1",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "firebase": "^8.10.0",
-    "quasar": "^2.0.0",
+    "quasar": "^2.6.0",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.13",
+    "vue-router": "^4.0.14",
     "vuex": "^4.0.1",
     "vuexfire": "^3.2.5"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.13.14",
+    "@babel/eslint-parser": "^7.17.0",
     "@quasar/app": "^3.3.3",
-    "eslint": "^7.14.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-vue": "^7.0.0",
-    "eslint-webpack-plugin": "^2.4.0"
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-vue": "^7.20.0",
+    "eslint-webpack-plugin": "^2.6.0"
   },
   "browserslist": [
     "last 10 Chrome versions",
