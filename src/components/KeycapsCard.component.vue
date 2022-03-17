@@ -1,11 +1,11 @@
 <template>
     <q-card class="keycaps-card">
         <q-card-section class="flex items-center justify-between q-py-sm q-px-md">
-            <span class="title">{{item.name}}</span>
+            <span @click="sendToDetails" class="title">{{item.name}}</span>
             <q-btn flat round :color="isFavorite ? 'negative' : 'favorite'" :style="isFavorite ? '' : 'opacity:.3'" icon="favorite" @click="favorite()"/>
         </q-card-section>
         
-        <q-img :src="imgURL">
+        <q-img :src="item.image" class="card-image"  @click="sendToDetails">
             <div class="absolute-bottom">
                 <q-chip size="12px" color="primary">
                     {{item.material}}
@@ -34,20 +34,10 @@ import { mapGetters, mapActions } from 'vuex'
                 type: Object,
             },
         },
-        data() {
-            return {
-                imgURL: ""
-            }
-        },
         methods: {
             ...mapActions([
                 "addKeycapsToFavorties"
             ]),
-            getImage(){
-                this.$store.$fb.getURLRessource(this.item.image).then((result)=>{
-                    this.imgURL = result
-                })
-            },
             favorite(){
                 if(this.getAuthStatus){
                     this.addKeycapsToFavorties({keycapsUID: this.item.id, userUID: this.getUserUID})
@@ -56,7 +46,9 @@ import { mapGetters, mapActions } from 'vuex'
                     this.$router.push({name: 'login'})
                 }
             },
-            
+            sendToDetails(){
+                this.$router.push({ name: "keycaps-details", params: {id: this.item.id }})
+            }
         },
         computed: { 
             ...mapGetters([
@@ -88,18 +80,21 @@ import { mapGetters, mapActions } from 'vuex'
             isFavorite(){
                 return this.getFavoritesKeycaps.includes(this.item.id)
             }
-        },
-        mounted () {
-            this.getImage();
-        },
+        }
     }
 </script>
 
 <style lang="scss" scoped>
 
 .keycaps-card{
+    &:hover{
+        .title{
+            
+                text-decoration: underline;
+        }
+    }
     .q-card__section{
-        background: #282E50;
+        background: #1B1B1B;
     }
 
     .title{
