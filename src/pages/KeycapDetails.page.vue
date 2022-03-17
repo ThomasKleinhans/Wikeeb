@@ -5,7 +5,7 @@
         <q-card class="keycaps-details" v-if="currentItem">
             <q-item>
                 <q-item-section>
-                    <q-item-label>
+                    <q-item-label class="header">
                         <q-btn flat round icon="edit" v-if="getAdminStatus" @click="tryToAddKeyboard" />
                         <q-btn flat round @click="favorite()" :color="isFavorite ? 'negative' : 'favorite'" :style="isFavorite ? '' : 'opacity:.3'" icon="favorite" />
                         {{currentItem.name}}
@@ -13,9 +13,10 @@
                 </q-item-section>
             </q-item>
             
-            <q-card-section horizontal>
+            <q-card-section class="content" horizontal>
                 <q-card-section class="col-8">
                     <q-img
+                    class="rounded-borders"
                     :src="currentItem.image"
                     spinner-color="white"
                     width="100%"
@@ -157,7 +158,18 @@ import { useQuasar } from "quasar";
 
 <style lang="scss" scoped>
 .keycaps-details{
-    background: #282E50;
+    background: #1B1B1B;
+    .header{
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+    }
+
+    .content{
+        & > div{
+            padding-top: 0;
+        }
+    }
 }
 .icon{
     min-width: 0 !important;

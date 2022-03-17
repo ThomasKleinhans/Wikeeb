@@ -5,7 +5,7 @@
             <q-btn flat round :color="isFavorite ? 'negative' : 'favorite'" :style="isFavorite ? '' : 'opacity:.3'" icon="favorite" @click="favorite()"/>
         </q-card-section>
         
-        <q-img :src="item.image"  @click="sendToDetails">
+        <q-img :src="item.image" class="card-image"  @click="sendToDetails">
             <div class="absolute-bottom">
                 <q-chip size="12px" color="primary">
                     {{item.material}}
@@ -87,8 +87,14 @@ import { mapGetters, mapActions } from 'vuex'
 <style lang="scss" scoped>
 
 .keycaps-card{
+    &:hover{
+        .title{
+            
+                text-decoration: underline;
+        }
+    }
     .q-card__section{
-        background: #282E50;
+        background: #1B1B1B;
     }
 
     .title{
