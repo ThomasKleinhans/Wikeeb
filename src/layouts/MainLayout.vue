@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <q-header elevated class="text-white navbar">
       <q-toolbar class="q-py-sm q-px-md">
-        <router-link :to="{ name: 'explore' }" class="text-white">
+        <router-link :to="{ name: 'explore' }" class="text-white row">
           <img id="logo" src="../assets/logo.svg" alt="" />
         </router-link>
 
@@ -125,7 +125,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .navbar {
-  background: #282e50;
+  background: #1B1B1B;
 
   a {
     text-decoration: none;
