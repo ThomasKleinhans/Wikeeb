@@ -64,11 +64,11 @@ import { mapGetters, mapActions } from 'vuex'
                     case 'GB-Live':
                     return "positive";
 
-                    case 'GB-Upcoming':
-                    return "warning";
-
-                    case 'In-Stock':
+                    case 'In-stock':
                     return "positive";
+
+                    case 'Sold out':
+                    return "negative";
 
                     case 'Interest Check':
                     return "info";

@@ -3,7 +3,7 @@
     <q-card style="width: 700px; max-width: 80vw" class="q-dialog-plugin">
       <q-card-section>
         <span class="text-h4 flex justify-center q-my-md"
-          >{{ currentKeycaps ? "Edit this set !" : "Submit a new keycap set" }}</span
+          >Submit a new keycap set</span
         >
         <q-form class="q-gutter-md">
           <q-stepper
@@ -20,33 +20,59 @@
               icon="settings"
               :done="step > 1"
             >
-              <q-input v-model="itemToEdit.name" label="Name" />
+              <q-input v-model="keycapToAdd.name" label="Name" />
               <q-select
-                v-model="itemToEdit.brand"
+                v-model="keycapToAdd.brand"
                 :options="KeycapConfig.brand"
                 label="Brand"
               />
               <q-select
-                v-model="itemToEdit.profile"
+                v-model="keycapToAdd.profile"
                 :options="KeycapConfig.profile"
                 label="Profile"
               />
               <q-select
-                v-model="itemToEdit.material"
+                v-model="keycapToAdd.material"
                 :options="KeycapConfig.material"
                 label="Material"
               />
               <q-select
-                v-model="itemToEdit.compatibility"
+                v-model="keycapToAdd.compatibility"
                 :options="KeycapConfig.compatibility"
                 label="Compatibility"
                 multiple
               />
               <q-select
-                v-model="itemToEdit.availability"
+                v-model="keycapToAdd.availability"
                 :options="KeycapConfig.availability"
                 label="Availability"
               />
+              <q-input v-if="isGB" label="GB start date" v-model="keycapToAdd.gbStart" mask="date" :rules="['date']">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
+                      <q-date v-model="keycapToAdd.gbStart" >
+                        <div class="row items-center justify-end">
+                          <q-btn v-close-popup label="Close" color="primary" flat />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+              <q-input v-if="isGB" label="GB end date" v-model="keycapToAdd.gbEnd" mask="date" :rules="['date']">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
+                      <q-date v-model="keycapToAdd.gbEnd">
+                        <div class="row items-center justify-end">
+                          <q-btn v-close-popup label="Close" color="primary" flat />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
               <q-file
                 v-model="filesImages"
                 label="Upload image"
@@ -62,9 +88,9 @@
               icon="create_new_folder"
               :done="step > 2"
             >
-              <div v-for="(link, index) in itemToEdit.links" :key="index" class="flex">
+              <div v-for="(link, index) in keycapToAdd.links" :key="index" class="flex">
                 <q-select
-                  v-model="itemToEdit.links[index].prefix"
+                  v-model="keycapToAdd.links[index].prefix"
                   :options="filteredLinks"
                   class="q-mr-md"
                 >
@@ -72,7 +98,7 @@
                     <q-icon name="language" />
                   </template>
                 </q-select>
-                <q-input class="col" v-model="itemToEdit.links[index].link" label="URL" />
+                <q-input class="col" v-model="keycapToAdd.links[index].link" label="URL" />
                 <q-btn rounded flat color="primary" icon="close" @click="removeLink(index)" />
               </div>
               <div class="flex justify-center q-my-md">
@@ -109,14 +135,9 @@ import KeycapConfig from "../config/keycaps.config.json";
 import { useQuasar } from "quasar";
 import { ref } from "vue";
 import FirebaseService from "../services/firebase";
+import { date } from 'quasar'
 
 export default {
-  props: {
-    currentKeycaps: {
-      type: Object,
-      default: null
-    },
-  },
   data() {
     return {
       KeycapConfig,
@@ -125,8 +146,10 @@ export default {
         brand: "",
         profile: "",
         material: "",
-        availability: [],
+        availability: "",
         compatibility: [],
+        gbStart: "",
+        gbEnd: "",
         image: "",
         links: [
           {
@@ -166,8 +189,8 @@ export default {
     filteredLinks() {
       return this.KeycapConfig.links.map(e => e.name)
     },
-    itemToEdit() {
-      return this.currentKeycaps ? this.currentKeycaps : this.keycapToAdd
+    isGB() {
+      return this.keycapToAdd.availability.startsWith('GB')
     }
   },
   methods: {
@@ -181,13 +204,13 @@ export default {
       }
     },
     addLink(){
-      this.itemToEdit.links.push({
+      this.keycapToAdd.links.push({
             prefix: "",
             link: "",
       })
     },
     removeLink(index){
-      this.itemToEdit.links.splice(index, 1)
+      this.keycapToAdd.links.splice(index, 1)
     },
     previous() {
       this.step--;
@@ -210,7 +233,6 @@ export default {
       // emit "ok" event (with optional payload)
       // before hiding the QDialog
       this.uploadImg();
-      //FirebaseService.pushItemToCollection("WIP-Keycaps", this.keycapToAdd)
 
       this.$emit("ok");
       // or with payload: this.$emit('ok', { ... })
@@ -223,112 +245,51 @@ export default {
       this.hide();
     },
     uploadImg() {
-      if(!this.currentKeycaps){
-        console.log('add a keycap')
-        // add a keycap
-        const MAX_WIDTH = 1000;
-        const MAX_HEIGHT = 500;
-        const MIME_TYPE = "image/jpeg";
-        const QUALITY = 0.7;
+      const MAX_WIDTH = 1000;
+      const MAX_HEIGHT = 500;
+      const MIME_TYPE = "image/jpeg";
+      const QUALITY = 0.7;
 
-        const blobURL = URL.createObjectURL(this.filesImages[0]);
-        const img = new Image();
-        img.src = blobURL;
+      const blobURL = URL.createObjectURL(this.filesImages[0]);
+      const img = new Image();
+      img.src = blobURL;
 
-        img.onerror = function () {
-          URL.revokeObjectURL(this.src);
-          console.error("Cannot load image");
-        };
+      img.onerror = function () {
+        URL.revokeObjectURL(this.src);
+        console.error("Cannot load image");
+      };
 
-        img.onload = () => {
-          URL.revokeObjectURL(this.src);
-          const [newWidth, newHeight] = this.calculateSize(
-            img,
-            MAX_WIDTH,
-            MAX_HEIGHT
-          );
-          const canvas = document.createElement("canvas");
-          canvas.width = newWidth;
-          canvas.height = newHeight;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0, newWidth, newHeight);
-          canvas.toBlob(
-            (blob) => {
-              FirebaseService.putImageToStorage(
-                "keycaps/" + this.filesImages[0].name,
-                blob
-              )
-                .then((response) => {
-                  FirebaseService.getURLRessource(response.metadata.fullPath).then((result)=>{
-                    this.itemToEdit.image = result
-                    FirebaseService.pushItemToCollection("keycaps", this.itemToEdit)
-                  })
+      img.onload = () => {
+        URL.revokeObjectURL(this.src);
+        const [newWidth, newHeight] = this.calculateSize(
+          img,
+          MAX_WIDTH,
+          MAX_HEIGHT
+        );
+        const canvas = document.createElement("canvas");
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        canvas.toBlob(
+          (blob) => {
+            FirebaseService.putImageToStorage(
+              "keycaps/" + this.filesImages[0].name,
+              blob
+            )
+              .then((response) => {
+                FirebaseService.getURLRessource(response.metadata.fullPath).then((result)=>{
+                  this.keycapToAdd.image = result
+                  FirebaseService.pushItemToCollection("keycaps", this.keycapToAdd)
                 })
-                .catch((err) => {
-                  console.error(err);
-                });
-            },
-            MIME_TYPE,
-            QUALITY
-          );
-        };
-      }
-      else{
-        // edit the keycap
-        console.log('edit a keycap')
-        if(this.filesImages){
-          console.log('has keycap')
-          // has image
-          const MAX_WIDTH = 1000;
-          const MAX_HEIGHT = 500;
-          const MIME_TYPE = "image/jpeg";
-          const QUALITY = 0.7;
-
-          const blobURL = URL.createObjectURL(this.filesImages[0]);
-          const img = new Image();
-          img.src = blobURL;
-
-          img.onerror = function () {
-            URL.revokeObjectURL(this.src);
-            console.error("Cannot load image");
-          };
-
-          img.onload = () => {
-            URL.revokeObjectURL(this.src);
-            const [newWidth, newHeight] = this.calculateSize(
-              img,
-              MAX_WIDTH,
-              MAX_HEIGHT
-            );
-            const canvas = document.createElement("canvas");
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, newWidth, newHeight);
-            canvas.toBlob(
-              (blob) => {
-                FirebaseService.putImageToStorage(
-                  "keycaps/" + this.filesImages[0].name,
-                  blob
-                )
-                  .then((response) => {
-                    FirebaseService.getURLRessource(response.metadata.fullPath).then((result)=>{
-                      this.itemToEdit.image = result
-                      FirebaseService.updateItemOnCollection("keycaps", this.itemToEdit.id, this.itemToEdit)
-                    })
-                  })
-                  .catch((err) => {
-                    console.error(err);
-                  });
-              },
-              MIME_TYPE,
-              QUALITY
-            );
-          };
-        }else{
-          console.log('has no keycap')
-          FirebaseService.updateItemOnCollection("keycaps", this.itemToEdit.id, this.itemToEdit)
-        }
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          },
+          MIME_TYPE,
+          QUALITY
+        );
       }
     },
     calculateSize(img, maxWidth, maxHeight) {

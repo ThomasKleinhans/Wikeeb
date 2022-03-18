@@ -30,7 +30,7 @@
                             </q-chip>
                         </div>
                         <div>
-                            <q-chip size="12px" color="secondary">
+                            <q-chip size="12px" :color="availabilityColor">
                                 {{currentItem.availability}}
                             </q-chip>
                         </div> 
@@ -91,11 +91,11 @@ import { mapGetters, mapActions } from 'vuex'
                     case 'GB-Live':
                     return "positive";
 
-                    case 'GB-Upcoming':
-                    return "warning";
-
-                    case 'In-Stock':
+                    case 'In-stock':
                     return "positive";
+
+                    case 'Sold out':
+                    return "negative";
 
                     case 'Interest Check':
                     return "info";
