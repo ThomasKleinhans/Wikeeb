@@ -6,7 +6,6 @@
             <q-item>
                 <q-item-section>
                     <q-item-label class="header">
-                        <q-btn flat round icon="edit" v-if="getAdminStatus" @click="tryToAddKeyboard" />
                         <q-btn flat round @click="favorite()" :color="isFavorite ? 'negative' : 'favorite'" :style="isFavorite ? '' : 'opacity:.3'" icon="favorite" />
                         {{currentItem.name}}
                     </q-item-label>
@@ -62,8 +61,6 @@
 <script>
 import KeycapConfig from "../config/keycaps.config.json"
 import { mapGetters, mapActions } from 'vuex'
-import AddKeycapModalComponentVue from "src/components/AddKeycapModal.component.vue"
-import { useQuasar } from "quasar";
 
     export default {
         data() {
@@ -73,32 +70,12 @@ import { useQuasar } from "quasar";
                 imgURL: null
             }
         },
-        setup() {
-            const $q = useQuasar();
-
-            function addKeyboard() {
-            $q.dialog({
-                component: AddKeycapModalComponentVue,
-                componentProps: {
-                    currentKeycaps: this.currentItem,
-                }
-            })
-                .onOk(() => {
-                })
-                .onCancel(() => {
-                })
-                .onDismiss(() => {
-                });
-            }
-            return { addKeyboard };
-        },
         computed: {
             ...mapGetters([
                 "getAuthStatus",
                 "getKeycapsById",
                 "getFavoritesKeycaps",
-                "getUserUID",
-                "getAdminStatus"
+                "getUserUID"
             ]),
             currentItem () {
                 return this.$store.getters.getKeycapsById(this.$route.params.id)
@@ -144,14 +121,7 @@ import { useQuasar } from "quasar";
                 else{
                     this.$router.push({name: 'login'})
                 }
-            },
-            tryToAddKeyboard() {
-                if (this.getAuthStatus) {
-                    this.addKeyboard();
-                } else {
-                    this.$router.push({ name: "login" });
-                }
-            },
+            }
         }
     }
 </script>
