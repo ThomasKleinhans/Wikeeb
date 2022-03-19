@@ -1,7 +1,7 @@
 {
-    "profile": ["Cherry", "OEM", "SA", "MT3", "NP", "DSA", "XDA", "KAT", "KAM", "Unknown"],
+    "profile": ["Cherry", "OEM", "DCS", "SA", "MT3", "NP", "DSA", "XDA", "KAT", "KAM", "Unknown"],
     "material": ["ABS", "PBT", "Aluminium", "Brass", "Unknown"],
-    "brand": ["GMK", "Signature Plastic", "Keyreative", "EnjoyPBT", "Unknown"],
+    "brand": ["GMK", "Signature Plastic", "MilkyWay", "Keyreative", "EnjoyPBT", "Unknown"],
     "availability": ["Interest Check", "GB-Live", "GB-Ended", "In-stock", "Sold out" ],
     "compatibility": ["ISO-UK", "ANSI-US", "ISO-FR", "ISO-DE", "ISO-CH" ],
     "links": [

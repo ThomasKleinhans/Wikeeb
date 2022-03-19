@@ -1,8 +1,8 @@
 {
   "name": "wikeeb",
   "version": "0.1.5",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "Wikeeb is a custom keyboard wiki. Get news about group buys, in-stock, keycaps sets and keyboards. ",
+  "productName": "Wikeeb | Keyboard wiki",
   "author": "ThomasKleinhans <kleinhans.thomas@gmail.com>",
   "private": true,
   "scripts": {
