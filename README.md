@@ -1,6 +1,6 @@
-# Quasar App (wikeeb)
+# Wikeeb | Keyboard wiki
 
-A Quasar Framework app
+Wikeeb is a custom keyboard wiki. Get news about group buys, in-stock, keycaps sets and keyboards.
 
 ## Install the dependencies
 ```bash
