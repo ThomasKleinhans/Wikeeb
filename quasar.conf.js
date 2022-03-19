@@ -25,7 +25,8 @@ module.exports = configure(function (ctx) {
     boot: [
       "firebase",
       "darkmode",
-      "init-data"
+      "init-data",
+      "google-analytics"
     ],
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
